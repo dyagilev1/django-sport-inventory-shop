@@ -1,0 +1,1 @@
+# django-sport-inventory-shop
