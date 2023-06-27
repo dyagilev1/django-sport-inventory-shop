@@ -1,0 +1,82 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock title %}
+
+{% block content %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" type="text/css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<div class="product-detail">
+        <div class="">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+        </div>
+        <div>
+            <h4 class="pb-3 pr-5">{{ product.name }}</h4>
+            <p class="price pb-5">{{ product.price }}грн</p>
+            </div>
+            <form action="{% url "cart:cart_add" product.id %}" method="post" id="addchart-form">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+                    
+                    <div class="cart-fav-box d-flex align-items-center pb-2">
+                            <button type="submit" name="cart_add" class="btn btn-dark">Додати у кошик</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="p-5">
+    {{ product.description|linebreaks}}
+</div>
+<div class="pl-5">
+    <h4>З ЦИМ ТАКОЖ ОБИРАЮТЬ</h4>
+</div>
+<div class="owl-carousel owl-theme product-list px-5">
+        {% for item in trending_products %}
+            <div class="item pr-3 pt-4">
+                <a href="{{ item.get_absolute_url }}">
+                    <img src="{% if item.image %}
+                        {{ item.image.url }}
+                    {% else %}
+                        {% static 'img/no_image.png' %}    
+                    {% endif %}" alt="">
+                </a>
+                <a style="color:black;" href="{{ item.get_absolute_url}}">{{ item.name }}</a><br>
+                    {{ item.price }}€
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+<script>
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    dots:false,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+})
+</script>
+{% endblock content %}

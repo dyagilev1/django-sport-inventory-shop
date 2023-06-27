@@ -1,0 +1,59 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+
+{% block about_us %}
+<div class="px-5 ">
+{% for msg in messages %}
+    <div class="alert alert-success " role="alert">
+        <strong class="d-flex justify-content-center"> {{ msg }} </strong>
+    </div>
+{% endfor %}
+</div>
+<div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-12 px-5">
+                <div class="contact-form">
+                    <div id="success"></div>
+                    <form name="sentMessage" action="" id="contactForm" novalidate="novalidate" method="POST">
+                        {% csrf_token %}
+
+                        <div class="control-group pb-3">
+                        {% if form.first_name.errors %}
+                            <div class="alert alert-damage">
+                                <strong>{{form.first_name.errors}}</strong>
+                            </div>
+                        {% endif %}
+                                {{form.first_name}}
+                        </div>
+                        <div class="control-group pb-3">
+                        {% if form.last_name.errors %}
+                            <div class="alert alert-damage">
+                                <strong>{{form.last_name.errors}}</strong>
+                            </div>
+                        {% endif %}
+                            {{form.last_name}}
+                        </div>
+                        <div class="control-group pb-3">
+                        {% if form.email.errors %}
+                            <div class="alert alert-damage">
+                                <strong>{{form.email.errors}}</strong>
+                            </div>
+                        {% endif %}
+                            {{form.email}}
+                        </div>
+                        <div class="control-group pb-3">
+                        {% if form.message.errors %}
+                            <div class="alert alert-damage">
+                                <strong>{{form.message.errors}}</strong>
+                            </div>
+                        {% endif %}
+                            {{form.message}}
+                        </div>
+                            <button type="submit" class="btn btn-dark ">Надіслати</button> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock about_us %}
