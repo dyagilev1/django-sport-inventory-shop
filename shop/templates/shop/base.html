@@ -7,7 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SPORT MANIA{% endblock title %}</title>
+
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+
     <script defer src='https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js'></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" type="text/css" rel="stylesheet" />
@@ -22,25 +26,38 @@
 
 </head>
 <body>
-<div class="header__main">
-    <div id="header">
-        <a href="/" class="logo">SPORT MANIA</a>
+    <div class="site-branding-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="logo">
+                        <h1><a href="/">Sport<span>Mania</span></a></h1>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="shopping-item">
+                    {% with total_items=cart|length %}
+                        <a href="{% url 'cart:cart_detail' %}">Кошик<i class="fa fa-shopping-cart"></i><span class="product-count">{{ total_items }}</span></a>
+                    {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End site branding area -->
+    
+    <div class="mainmenu-area">
+        <div id="subheader">
+            <a class="subheader_item" href="/">Головна</a>
+            <a class="subheader_item" href="{% url 'shop:contact' %}">Контакти</a>
+            <a class="subheader_item" href="{% url 'shop:questions_answer' %}">Питання-відповіді</a>
+            <a class="subheader_item" href="{% url 'shop:product_list' %}">Магазин</a>
+        </div>
     </div>
 </div>
-<div id="subheader">
-    <a class="subheader_item" href="/">Головна</a>
-    <a class="subheader_item" href="{% url 'shop:contact' %}">Контакти</a>
-    <a class="subheader_item" href="{% url 'shop:questions_answer' %}">Запитання</a>
-    <a class="subheader_item" href="{% url 'shop:product_list' %}">Магазин</a>
-    <div class="cart-area ">
-        {% with total_items=cart|length %}
-            <a href="{% url 'cart:cart_detail' %}" id="essenceCartBtn"><img src="{% static 'img/cart.png' %}" alt=""> <span>{{ total_items }}</span></a>
-        {% endwith %}
-    </div>
+    
 
-</div>
-
-<div id="content">
+<div>
     {% block content %}
     {% endblock content %}
 </div>

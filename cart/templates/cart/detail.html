@@ -7,6 +7,18 @@
 
 {% block content %}
 
+<div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Кошик</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="px-5 ">
 {% for msg in messages %}
     <div class="alert alert-success " role="alert">
@@ -18,7 +30,7 @@
 
 {% with total_items=cart|length %}
     {% if total_items > 0%}
-        <div class="cart__info container-fluid">
+        <div class="cart__info container-fluid pt-5">
             <div class="row px-xl-5">
                 <div class="col-lg-8 table-responsive mb-5">
                     <table class="text-center mb-0">
@@ -80,7 +92,7 @@
                             </div>
                             {% with total_items=cart|length %}
                                 {% if total_items > 0%}
-                                    <a href="{% url 'orders:order_create' %}" class="btn btn-block btn-dark my-3 py-3">Оформити замовлення</a>
+                                    <a href="{% url 'orders:order_create' %}" class="btn btn-block btn-light my-3 py-3">Оформити замовлення</a>
                                 {% endif %}
                             {% endwith %}
                         </div>
